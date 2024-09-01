@@ -1,9 +1,8 @@
-import React from 'react';
+import React from "react";
+import CreateEmployeeForm from "../../components/CreateEmployeeForm";
 
-// type Props = {};
-
-const CreateEmployee = (props) => {
-  return <div> Employee Create</div>;
+const CreateEmployee = () => {
+  return <CreateEmployeeForm />;
 };
 
 export default CreateEmployee;

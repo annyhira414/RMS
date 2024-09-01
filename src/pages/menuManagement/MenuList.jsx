@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Container,
   Typography,
@@ -11,40 +11,42 @@ import {
   DialogContent,
   DialogTitle,
   TextField,
-} from '@mui/material';
-import MenuTable from './MenuTable';
+  Select,
+  MenuItem,
+} from "@mui/material";
+import MenuTable from "./MenuTable";
 
 const MenuList = () => {
   const [menus, setMenus] = useState([
     {
-      restaurantName: 'Flavor Haven',
-      menuName: 'Chicken',
-      description: 'Grilled marinated chicken skewers served with a spicy.',
+      restaurantName: "Flavor Haven",
+      menuName: "Chicken",
+      description: "Grilled marinated chicken skewers served with a spicy.",
     },
     {
-      restaurantName: 'The Dining Den',
-      menuName: 'Beef',
-      description: 'Succulent shrimp sautéed in a rich garlic butter sauce.',
+      restaurantName: "The Dining Den",
+      menuName: "Beef",
+      description: "Succulent shrimp sautéed in a rich garlic butter sauce.",
     },
     {
-      restaurantName: 'Urban Bites',
-      menuName: 'Vegetable',
-      description: 'Crispy rolls stuffed with fresh vegetables, served.',
+      restaurantName: "Urban Bites",
+      menuName: "Vegetable",
+      description: "Crispy rolls stuffed with fresh vegetables, served.",
     },
   ]);
 
   const [open, setOpen] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [currentMenu, setCurrentMenu] = useState({
-    restaurantName: '',
-    menuName: '',
-    description: '',
+    restaurantName: "",
+    menuName: "",
+    description: "",
   });
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [deleteIndex, setDeleteIndex] = useState(null);
 
   const handleOpen = () => {
-    setCurrentMenu({ restaurantName: '', menuName: '', description: '' });
+    setCurrentMenu({ restaurantName: "", menuName: "", description: "" });
     setEditMode(false);
     setOpen(true);
   };
@@ -59,9 +61,7 @@ const MenuList = () => {
 
   const handleSave = () => {
     if (editMode) {
-      const updatedMenus = menus.map((menu, index) =>
-        index === currentMenu.index ? currentMenu : menu
-      );
+      const updatedMenus = menus.map((menu, index) => (index === currentMenu.index ? currentMenu : menu));
       setMenus(updatedMenus);
     } else {
       setMenus([...menus, currentMenu]);
@@ -89,70 +89,70 @@ const MenuList = () => {
   return (
     <Container>
       <Box mt={4} mb={2}>
-        <Typography variant='h4'>Restaurant Management System</Typography>
-        <Breadcrumbs aria-label='breadcrumb'>
-          <Link underline='hover' color='inherit' href='/'>
-            RMS
-          </Link>
-          <Typography color='text.primary'>Menu List</Typography>
+        <Breadcrumbs aria-label="breadcrumb">
+          <Typography variant="subtitle1" gutterBottom>
+            RMS &gt; Menu List
+          </Typography>
         </Breadcrumbs>
       </Box>
+      <Typography variant="subtitle1" gutterBottom sx={{ fontWeight: "bold" }}>
+        Menu List
+      </Typography>
+      <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+        <DialogActions>
+          <Box>Show</Box>
+          <Select defaultValue={10} size="small">
+            <MenuItem value={10}>10</MenuItem>
+            <MenuItem value={25}>25</MenuItem>
+            <MenuItem value={50}>50</MenuItem>
+          </Select>
+        </DialogActions>
 
-      <Box
-        display='flex'
-        justifyContent='space-between'
-        alignItems='center'
-        mb={2}
-      >
-        <Typography variant='h5'>Menu List</Typography>
-        <Button variant='contained' color='primary' onClick={handleOpen}>
-          + Add Menu
-        </Button>
+        <DialogActions>
+          <Button variant="contained" color="primary" onClick={() => handleOpen}>
+            + Add Menu
+          </Button>
+          <TextField size="small" variant="outlined" placeholder="Search" />
+        </DialogActions>
       </Box>
 
       <MenuTable menus={menus} onEdit={handleEdit} onDelete={handleDelete} />
 
       {/* Add/Edit Dialog */}
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{editMode ? 'Edit Menu' : 'Add New Menu'}</DialogTitle>
+        <DialogTitle>{editMode ? "Edit Menu" : "Add New Menu"}</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
-            margin='dense'
-            label='Restaurant Name'
+            margin="dense"
+            label="Restaurant Name"
             fullWidth
             value={currentMenu.restaurantName}
-            onChange={(e) =>
-              setCurrentMenu({ ...currentMenu, restaurantName: e.target.value })
-            }
+            onChange={(e) => setCurrentMenu({ ...currentMenu, restaurantName: e.target.value })}
           />
           <TextField
-            margin='dense'
-            label='Menu Name'
+            margin="dense"
+            label="Menu Name"
             fullWidth
             value={currentMenu.menuName}
-            onChange={(e) =>
-              setCurrentMenu({ ...currentMenu, menuName: e.target.value })
-            }
+            onChange={(e) => setCurrentMenu({ ...currentMenu, menuName: e.target.value })}
           />
           <TextField
-            margin='dense'
-            label='Description'
+            margin="dense"
+            label="Description"
             fullWidth
             multiline
             rows={3}
             value={currentMenu.description}
-            onChange={(e) =>
-              setCurrentMenu({ ...currentMenu, description: e.target.value })
-            }
+            onChange={(e) => setCurrentMenu({ ...currentMenu, description: e.target.value })}
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color='secondary'>
+          <Button onClick={handleClose} color="secondary">
             Cancel
           </Button>
-          <Button onClick={handleSave} color='primary'>
-            {editMode ? 'Save Changes' : 'Add Menu'}
+          <Button onClick={handleSave} color="primary">
+            {editMode ? "Save Changes" : "Add Menu"}
           </Button>
         </DialogActions>
       </Dialog>
@@ -164,10 +164,10 @@ const MenuList = () => {
           <Typography>Are you sure you want to delete this menu?</Typography>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleDeleteClose} color='secondary'>
+          <Button onClick={handleDeleteClose} color="secondary">
             Cancel
           </Button>
-          <Button onClick={handleDeleteConfirm} color='primary'>
+          <Button onClick={handleDeleteConfirm} color="primary">
             Delete
           </Button>
         </DialogActions>

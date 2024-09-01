@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import {
   Container,
   Typography,
@@ -20,49 +21,52 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-} from '@mui/material';
-import { Edit, Delete, Close } from '@mui/icons-material'; // Import Close icon
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  fetchRestaurantList,
-  selectRestaurantList,
-} from '../../redux/features/restaurantListSlice';
+} from "@mui/material";
+import { Edit, Delete, Close } from "@mui/icons-material";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchRestaurantList, selectRestaurantList } from "../../redux/features/restaurantListSlice";
 
 const RestaurantList = () => {
-  const [open, setOpen] = useState(false); // State to manage add/edit dialog visibility
-  const [deleteOpen, setDeleteOpen] = useState(false); // State to manage delete confirmation dialog visibility
+  const [open, setOpen] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
   const [selectedRestaurant, setSelectedRestaurant] = useState({
     id: null,
-    name: '',
-  }); // State to store the selected restaurant
-  const [isEditing, setIsEditing] = useState(false); // State to determine if editing or adding
+    name: "",
+  });
+  const [isEditing, setIsEditing] = useState(false);
 
   const dispatch = useDispatch();
   const restaurantListResp = useSelector(selectRestaurantList);
 
-  console.log('restaurantListResp', restaurantListResp);
+  const [restaurants, setRestaurants] = useState([]); // Initialize with an empty array
 
+  // Fetch restaurants from API
   useEffect(() => {
-    dispatch(fetchRestaurantList);
-  }, [dispatch]);
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("https://rms.techsistltd.com/restaurant/v1/restaurant/");
+        // Assuming the API returns the list directly in 'results' key
+        setRestaurants(response.data);
+        console.log("vul  vul");
+      } catch (error) {
+        console.error("Error fetching restaurants ....:", error);
+      }
+    };
 
-  const [restaurants, setRestaurants] = useState([
-    { id: 1, name: 'Flavor Haven' },
-    { id: 2, name: 'The Dining Den' },
-    { id: 3, name: 'Urban Bites' },
-  ]);
+    fetchData(); // Call the fetchData function
+  }, []);
 
   // Function to handle opening the add/edit dialog
-  const handleAddEditOpen = (restaurant = { id: null, name: '' }) => {
-    setSelectedRestaurant(restaurant); // Set the selected restaurant
-    setIsEditing(!!restaurant.id); // Determine if editing based on the presence of a restaurant ID
+  const handleAddEditOpen = (restaurant = { id: null, name: "" }) => {
+    setSelectedRestaurant(restaurant);
+    setIsEditing(!!restaurant.id);
     setOpen(true);
   };
 
   // Function to handle closing the add/edit dialog
   const handleAddEditClose = () => {
     setOpen(false);
-    setSelectedRestaurant({ id: null, name: '' }); // Reset selected restaurant
+    setSelectedRestaurant({ id: null, name: "" });
     setIsEditing(false);
   };
 
@@ -72,17 +76,12 @@ const RestaurantList = () => {
       // Update restaurant logic
       setRestaurants((prev) =>
         prev.map((restaurant) =>
-          restaurant.id === selectedRestaurant.id
-            ? { ...restaurant, name: selectedRestaurant.name }
-            : restaurant
+          restaurant.id === selectedRestaurant.id ? { ...restaurant, name: selectedRestaurant.name } : restaurant
         )
       );
     } else {
       // Add restaurant logic
-      setRestaurants((prev) => [
-        ...prev,
-        { id: prev.length + 1, name: selectedRestaurant.name },
-      ]);
+      setRestaurants((prev) => [...prev, { id: prev.length + 1, name: selectedRestaurant.name }]);
     }
     handleAddEditClose();
   };
@@ -96,56 +95,37 @@ const RestaurantList = () => {
   // Function to handle closing the delete confirmation dialog
   const handleDeleteClose = () => {
     setDeleteOpen(false);
-    setSelectedRestaurant({ id: null, name: '' }); // Reset selected restaurant
+    setSelectedRestaurant({ id: null, name: "" });
   };
 
   // Function to handle deleting a restaurant
   const handleDelete = () => {
-    setRestaurants((prev) =>
-      prev.filter((restaurant) => restaurant.id !== selectedRestaurant.id)
-    );
+    setRestaurants((prev) => prev.filter((restaurant) => restaurant.id !== selectedRestaurant.id));
     handleDeleteClose();
   };
 
   return (
-    <Container maxWidth='md'>
-      <Typography
-        variant='h5'
-        gutterBottom
-        sx={{
-          backgroundColor: 'white', // Set the background color to white
-          border: '1px solid', // Define the border style
-          borderColor: 'grey.300',
-          padding: '8px 16px',
-          borderRadius: '4px',
-          boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
-        }}
-      >
-        Restaurant Management System
-      </Typography>
-
-      <Typography variant='subtitle1' gutterBottom>
+    <Container maxWidth="md">
+      <Typography variant="subtitle1" gutterBottom>
         RMS &gt; Restaurant List
       </Typography>
       <Box
         sx={{
-          backgroundColor: 'white',
-          border: '1px solid',
-          borderColor: 'grey.300',
-          padding: '8px 16px 30px 16px',
-          borderRadius: '4px',
-          boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
+          backgroundColor: "white",
+          border: "1px solid",
+          borderColor: "grey.300",
+          padding: "8px 16px 30px 16px",
+          borderRadius: "4px",
+          boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
         }}
       >
-        <Box
-          display='flex'
-          justifyContent='space-between'
-          alignItems='center'
-          mb={2}
-        >
+        <Typography variant="subtitle1" gutterBottom sx={{ fontWeight: "bold" }}>
+          Restaurant List
+        </Typography>
+        <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
           <DialogActions>
             <Box>Show</Box>
-            <Select defaultValue={10} size='small'>
+            <Select defaultValue={10} size="small">
               <MenuItem value={10}>10</MenuItem>
               <MenuItem value={25}>25</MenuItem>
               <MenuItem value={50}>50</MenuItem>
@@ -153,25 +133,21 @@ const RestaurantList = () => {
           </DialogActions>
 
           <DialogActions>
-            <Button
-              variant='contained'
-              color='primary'
-              onClick={() => handleAddEditOpen()}
-            >
+            <Button variant="contained" color="primary" onClick={() => handleAddEditOpen()}>
               + Add Restaurant
             </Button>
-            <TextField size='small' variant='outlined' placeholder='Search' />
+            <TextField size="small" variant="outlined" placeholder="Search" />
           </DialogActions>
         </Box>
 
-        <TableContainer component={Paper} sx={{ width: '100%' }}>
-          <Table size='small'>
+        <TableContainer component={Paper} sx={{ width: "100%" }}>
+          <Table size="small">
             <TableHead>
               <TableRow>
-                <TableCell align='center' sx={{ fontWeight: 'bold' }}>
+                <TableCell align="center" sx={{ fontWeight: "bold" }}>
                   Restaurant Name
                 </TableCell>
-                <TableCell align='center' sx={{ fontWeight: 'bold' }}>
+                <TableCell align="center" sx={{ fontWeight: "bold" }}>
                   Action
                 </TableCell>
               </TableRow>
@@ -179,18 +155,12 @@ const RestaurantList = () => {
             <TableBody>
               {restaurants.map((restaurant) => (
                 <TableRow key={restaurant.id}>
-                  <TableCell align='center'>{restaurant.name}</TableCell>
-                  <TableCell align='center'>
-                    <IconButton
-                      color='primary'
-                      onClick={() => handleAddEditOpen(restaurant)}
-                    >
+                  <TableCell align="center">{restaurant.name}</TableCell>
+                  <TableCell align="center">
+                    <IconButton onClick={() => handleAddEditOpen(restaurant)}>
                       <Edit />
                     </IconButton>
-                    <IconButton
-                      color='secondary'
-                      onClick={() => handleDeleteOpen(restaurant)}
-                    >
+                    <IconButton onClick={() => handleDeleteOpen(restaurant)}>
                       <Delete />
                     </IconButton>
                   </TableCell>
@@ -206,20 +176,20 @@ const RestaurantList = () => {
         open={open}
         onClose={handleAddEditClose}
         sx={{
-          '& .MuiDialog-paper': {
-            width: '500px',
-            maxWidth: '100%',
-            maxHeight: '100%',
+          "& .MuiDialog-paper": {
+            width: "500px",
+            maxWidth: "100%",
+            maxHeight: "100%",
           },
         }}
       >
         <DialogTitle>
-          {isEditing ? 'Edit Restaurant' : 'Create Restaurant'}
+          {isEditing ? "Edit Restaurant" : "Create Restaurant"}
           <IconButton
-            aria-label='close'
+            aria-label="close"
             onClick={handleAddEditClose}
             sx={{
-              position: 'absolute',
+              position: "absolute",
               right: 8,
               top: 8,
               color: (theme) => theme.palette.grey[500],
@@ -229,18 +199,14 @@ const RestaurantList = () => {
           </IconButton>
         </DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            {isEditing
-              ? 'Edit the restaurant name'
-              : 'Enter the restaurant name'}
-          </DialogContentText>
+          <DialogContentText>{isEditing ? "Edit the restaurant name" : "Enter the restaurant name"}</DialogContentText>
           <TextField
             autoFocus
-            margin='dense'
-            label='Restaurant Name'
-            type='text'
+            margin="dense"
+            label="Restaurant Name"
+            type="text"
             fullWidth
-            variant='outlined'
+            variant="outlined"
             value={selectedRestaurant.name}
             onChange={(e) =>
               setSelectedRestaurant({
@@ -250,8 +216,8 @@ const RestaurantList = () => {
             }
           />
           <Box sx={{ p: 2 }}></Box>
-          <Button onClick={handleSave} variant='contained' fullWidth>
-            {isEditing ? 'Update' : 'Save'}
+          <Button onClick={handleSave} variant="contained" fullWidth>
+            {isEditing ? "Update" : "Save"}
           </Button>
         </DialogContent>
       </Dialog>
@@ -260,19 +226,13 @@ const RestaurantList = () => {
       <Dialog open={deleteOpen} onClose={handleDeleteClose}>
         <DialogTitle>Delete Restaurant</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            Are you sure you want to delete {selectedRestaurant.name}?
-          </DialogContentText>
+          <DialogContentText>Are you sure you want to delete {selectedRestaurant.name}?</DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button
-            onClick={handleDeleteClose}
-            variant='outlined'
-            color='grey[500]'
-          >
+          <Button onClick={handleDeleteClose} variant="outlined" color="grey[500]">
             Cancel
           </Button>
-          <Button onClick={handleDelete} variant='contained' color='error'>
+          <Button onClick={handleDelete} variant="contained" color="error">
             Delete
           </Button>
         </DialogActions>

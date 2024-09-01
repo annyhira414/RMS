@@ -1,25 +1,26 @@
-import { AppBar, Toolbar, Typography } from '@mui/material';
-import colorConfigs from '../../configs/colorConfigs';
-import sizeConfigs from '../../configs/sizeConfigs';
+import { AppBar, Toolbar, Typography } from "@mui/material";
+import colorConfigs from "../../configs/colorConfigs";
+import sizeConfigs from "../../configs/sizeConfigs";
 
 const Topbar = () => {
   return (
     <AppBar
-      position='fixed'
+      position="fixed"
       sx={{
         width: `calc(100% - ${sizeConfigs.sidebar.width} )`,
         ml: sizeConfigs.sidebar.width,
-        boxShadow: '1px',
-        borderRadius: '5px',
+        boxShadow: "1px",
+        borderRadius: "5px",
         backgroundColor: colorConfigs.topbar.bg,
         color: colorConfigs.topbar.color,
-        top: '10px',
-        height: '50px',
-        justifyContent: 'center',
+        top: "10px",
+        height: "50px",
+        justifyContent: "center",
+        padding: "8px 16px",
       }}
     >
       <Toolbar>
-        <Typography variant='h6'>Restaurent Management System</Typography>
+        <Typography variant="h6">Restaurent Management System</Typography>
       </Toolbar>
     </AppBar>
   );

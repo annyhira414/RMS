@@ -1,94 +1,95 @@
-import HomePage from '../pages/home/HomePage';
-import GridView from '@mui/icons-material/GridView';
-import KeyboardDoubleArrowRight from '@mui/icons-material/KeyboardDoubleArrowRight';
-import RestaurentList from '../pages/restaurentManagement/RestaurentList';
-import EmployeeList from '../pages/employeeManagement/EmployeeList';
-import CreateEmployee from '../pages/employeeManagement/CreateEmployee';
-import EmployeePageLayout from '../pages/employeeManagement/EmployeePageLayout';
-import RestaurentPageLayout from '../pages/restaurentManagement/RestaurentPageLayout';
-import MenuPageLayout from '../pages/menuManagement/MenuPageLayout';
-import MenuList from '../pages/menuManagement/MenuList';
-import MenuItem from '../pages/menuManagement/MenuItem';
+import HomePage from "../pages/home/HomePage";
+import GridView from "@mui/icons-material/GridView";
+import KeyboardDoubleArrowRight from "@mui/icons-material/KeyboardDoubleArrowRight";
+import RestaurentList from "../pages/restaurentManagement/RestaurentList";
+import EmployeeList from "../pages/employeeManagement/EmployeeList";
+import CreateEmployee from "../pages/employeeManagement/CreateEmployee";
+import EmployeePageLayout from "../pages/employeeManagement/EmployeePageLayout";
+import RestaurentPageLayout from "../pages/restaurentManagement/RestaurentPageLayout";
+import MenuPageLayout from "../pages/menuManagement/MenuPageLayout";
+import MenuList from "../pages/menuManagement/MenuList";
+import MenuItem from "../pages/menuManagement/MenuItem";
+import MenuItemDetails from "../pages/menuManagement/MenuItemDetails";
 
 const appRoutes = [
   {
     index: true,
     element: <HomePage />,
-    state: 'home',
+    state: "home",
   },
   {
-    path: '/restaurent',
+    path: "/restaurent",
     element: <RestaurentPageLayout />,
-    state: 'restaurent',
+    state: "restaurent",
     sidebarProps: {
-      displayText: 'Reastaurent Management',
+      displayText: "Reastaurent Management",
       icon: <GridView />,
     },
     child: [
       {
-        path: '/restaurent/list',
+        path: "/restaurent/list",
         element: <RestaurentList />,
-        state: 'restaurent.list',
+        state: "restaurent.list",
         sidebarProps: {
-          displayText: 'Restaurent List',
+          displayText: "Restaurent List",
           icon: <KeyboardDoubleArrowRight />,
         },
       },
     ],
   },
   {
-    path: '/employee',
+    path: "/employee",
     element: <EmployeePageLayout />,
-    state: 'employee',
+    state: "employee",
     sidebarProps: {
-      displayText: 'Employee Management',
+      displayText: "Employee Management",
       icon: <GridView />,
     },
     child: [
       {
-        path: '/employee/list',
+        path: "/employee/list",
         element: <EmployeeList />,
-        state: 'employee.list',
+        state: "employee.list",
         sidebarProps: {
-          displayText: 'Employee List',
+          displayText: "Employee List",
           icon: <KeyboardDoubleArrowRight />,
         },
       },
       {
-        path: '/employee/create',
+        path: "/employee/create",
         element: <CreateEmployee />,
-        state: 'employee.create',
+        state: "employee.create",
         sidebarProps: {
-          displayText: 'Create Employee',
+          displayText: "Create Employee",
           icon: <KeyboardDoubleArrowRight />,
         },
       },
     ],
   },
   {
-    path: '/menu',
+    path: "/menu",
     element: <MenuPageLayout />,
-    state: 'menu',
+    state: "menu",
     sidebarProps: {
-      displayText: 'Menu Management',
+      displayText: "Menu Management",
       icon: <GridView />,
     },
     child: [
       {
-        path: '/menu/list',
+        path: "/menu/list",
         element: <MenuList />,
-        state: 'menu.list',
+        state: "menu.list",
         sidebarProps: {
-          displayText: 'Menu List',
+          displayText: "Menu List",
           icon: <KeyboardDoubleArrowRight />,
         },
       },
       {
-        path: '/menu/item',
+        path: "/menu/item",
         element: <MenuItem />,
-        state: 'menu.item',
+        state: "menu.item",
         sidebarProps: {
-          displayText: 'Menu Item',
+          displayText: "Menu Item",
           icon: <KeyboardDoubleArrowRight />,
         },
       },
