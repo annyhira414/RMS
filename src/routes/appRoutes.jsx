@@ -9,7 +9,6 @@ import RestaurentPageLayout from "../pages/restaurentManagement/RestaurentPageLa
 import MenuPageLayout from "../pages/menuManagement/MenuPageLayout";
 import MenuList from "../pages/menuManagement/MenuList";
 import MenuItem from "../pages/menuManagement/MenuItem";
-import MenuItemDetails from "../pages/menuManagement/MenuItemDetails";
 
 const appRoutes = [
   {

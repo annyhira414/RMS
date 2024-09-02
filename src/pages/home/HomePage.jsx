@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 
 // type Props = {};
 
 const HomePage = (props) => {
-  return <div>HomePage</div>;
+  return <div></div>;
 };
 
 export default HomePage;
