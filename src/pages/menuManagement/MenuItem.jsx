@@ -43,7 +43,20 @@ const MenuItemList = () => {
   const [showDetails, setShowDetails] = useState(false); // State to toggle form visibility
 
   return (
-    <Paper sx={{ p: 2 }}>
+    <Paper
+      sx={{
+        maxWidth: "auto",
+        margin: "auto",
+        mt: 4,
+        p: 2,
+        backgroundColor: "white",
+        border: "1px solid",
+        borderColor: "grey.300",
+        padding: "8px 16px 30px 16px",
+        borderRadius: "4px",
+        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+      }}
+    >
       {showDetails ? (
         <MenuItemDetails />
       ) : (

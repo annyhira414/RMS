@@ -5,7 +5,7 @@ const CreateEmployeeForm = () => {
   return (
     <Card
       sx={{
-        // maxWidth: 800,
+        maxWidth: "auto",
         margin: "auto",
         mt: 4,
         p: 2,

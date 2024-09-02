@@ -16,7 +16,7 @@ const MenuTable = ({ menus, onEdit, onDelete }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {menus.map((menu, index) => (
+          {menus?.map((menu, index) => (
             <TableRow key={index}>
               <TableCell>{menu.restaurantName}</TableCell>
               <TableCell>{menu.menuName}</TableCell>

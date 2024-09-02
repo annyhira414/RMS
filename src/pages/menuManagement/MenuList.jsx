@@ -109,7 +109,7 @@ const MenuList = () => {
         </DialogActions>
 
         <DialogActions>
-          <Button variant="contained" color="primary" onClick={() => handleOpen}>
+          <Button variant="contained" color="primary" onClick={() => handleOpen()}>
             + Add Menu
           </Button>
           <TextField size="small" variant="outlined" placeholder="Search" />

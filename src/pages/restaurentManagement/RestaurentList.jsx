@@ -25,6 +25,7 @@ import {
 import { Edit, Delete, Close } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRestaurantList, selectRestaurantList } from "../../redux/features/restaurantListSlice";
+import sizeConfigs from "../../configs/sizeConfigs";
 
 const RestaurantList = () => {
   const [open, setOpen] = useState(false);
@@ -105,7 +106,12 @@ const RestaurantList = () => {
   };
 
   return (
-    <Container maxWidth="md">
+    <Container
+      maxWidth="auto"
+      // sx={{
+      //   width: `calc(100% - ${sizeConfigs.sidebar.width} )`,
+      // }}
+    >
       <Typography variant="subtitle1" gutterBottom>
         RMS &gt; Restaurant List
       </Typography>

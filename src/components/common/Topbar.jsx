@@ -7,16 +7,19 @@ const Topbar = () => {
     <AppBar
       position="fixed"
       sx={{
-        width: `calc(100% - ${sizeConfigs.sidebar.width} )`,
+        maxWidth: "auto",
+        // width: `calc(100% - ${sizeConfigs.sidebar.width} )`,
         ml: sizeConfigs.sidebar.width,
         boxShadow: "1px",
         borderRadius: "5px",
         backgroundColor: colorConfigs.topbar.bg,
         color: colorConfigs.topbar.color,
         top: "10px",
+        left: "50px",
+        right: "20px",
         height: "50px",
         justifyContent: "center",
-        padding: "8px 16px",
+        // padding: "8px 16px",
       }}
     >
       <Toolbar>

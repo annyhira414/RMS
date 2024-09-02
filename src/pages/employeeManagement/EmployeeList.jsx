@@ -85,7 +85,7 @@ const EmployeeList = () => {
       {showDetails ? (
         <EmployeeProfile />
       ) : (
-        <Container maxWidth="md">
+        <Container maxWidth="auto">
           <Typography variant="subtitle1" gutterBottom>
             RMS &gt; Employee List
           </Typography>
