@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import {
   Container,
   Typography,
@@ -23,95 +22,74 @@ import {
   DialogTitle,
 } from "@mui/material";
 import { Edit, Delete, Close } from "@mui/icons-material";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchRestaurantList, selectRestaurantList } from "../../redux/features/restaurantListSlice";
-import sizeConfigs from "../../configs/sizeConfigs";
 
 const RestaurantList = () => {
   const [open, setOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
-  const [selectedRestaurant, setSelectedRestaurant] = useState({
-    id: null,
-    name: "",
-  });
+  const [selectedRestaurant, setSelectedRestaurant] = useState({ id: null, name: "" });
   const [isEditing, setIsEditing] = useState(false);
 
-  const dispatch = useDispatch();
-  const restaurantListResp = useSelector(selectRestaurantList);
+  const [restaurants, setRestaurants] = useState([
+    { id: 1, name: "Flavor Haven" },
+    { id: 2, name: "The Dining Den" },
+    { id: 3, name: "Urban Bites" },
+  ]);
 
-  const [restaurants, setRestaurants] = useState([]); // Initialize with an empty array
+  //   useEffect(() => {
+  //     const fetchData = async () => {
+  //       try {
+  //         const response = await axios.get("https://rms.techsistltd.com/restaurant/v1/restaurant/");
+  //         setRestaurants(response.data);
+  //       } catch (error) {
+  //         console.error("Error fetching restaurants ....:", error);
+  //       }
+  //     };
 
-  // Fetch restaurants from API
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("https://rms.techsistltd.com/restaurant/v1/restaurant/");
-        // Assuming the API returns the list directly in 'results' key
-        setRestaurants(response.data);
-        console.log("vul  vul");
-      } catch (error) {
-        console.error("Error fetching restaurants ....:", error);
-      }
-    };
+  //     fetchData();
+  //   }, []);
 
-    fetchData(); // Call the fetchData function
-  }, []);
-
-  // Function to handle opening the add/edit dialog
   const handleAddEditOpen = (restaurant = { id: null, name: "" }) => {
     setSelectedRestaurant(restaurant);
     setIsEditing(!!restaurant.id);
     setOpen(true);
   };
 
-  // Function to handle closing the add/edit dialog
   const handleAddEditClose = () => {
     setOpen(false);
     setSelectedRestaurant({ id: null, name: "" });
     setIsEditing(false);
   };
 
-  // Function to handle saving the data (add or update a restaurant)
   const handleSave = () => {
     if (isEditing) {
-      // Update restaurant logic
       setRestaurants((prev) =>
         prev.map((restaurant) =>
           restaurant.id === selectedRestaurant.id ? { ...restaurant, name: selectedRestaurant.name } : restaurant
         )
       );
     } else {
-      // Add restaurant logic
       setRestaurants((prev) => [...prev, { id: prev.length + 1, name: selectedRestaurant.name }]);
     }
     handleAddEditClose();
   };
 
-  // Function to handle opening the delete confirmation dialog
   const handleDeleteOpen = (restaurant) => {
     setSelectedRestaurant(restaurant);
     setDeleteOpen(true);
   };
 
-  // Function to handle closing the delete confirmation dialog
   const handleDeleteClose = () => {
     setDeleteOpen(false);
     setSelectedRestaurant({ id: null, name: "" });
   };
 
-  // Function to handle deleting a restaurant
   const handleDelete = () => {
     setRestaurants((prev) => prev.filter((restaurant) => restaurant.id !== selectedRestaurant.id));
     handleDeleteClose();
   };
 
   return (
-    <Container
-      maxWidth="auto"
-      // sx={{
-      //   width: `calc(100% - ${sizeConfigs.sidebar.width} )`,
-      // }}
-    >
+    <Container maxWidth="auto">
       <Typography variant="subtitle1" gutterBottom>
         RMS &gt; Restaurant List
       </Typography>
@@ -125,9 +103,6 @@ const RestaurantList = () => {
           boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
         }}
       >
-        <Typography variant="subtitle1" gutterBottom sx={{ fontWeight: "bold" }}>
-          Restaurant List
-        </Typography>
         <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
           <DialogActions>
             <Box>Show</Box>
@@ -177,7 +152,6 @@ const RestaurantList = () => {
         </TableContainer>
       </Box>
 
-      {/* Add/Edit Restaurant Dialog */}
       <Dialog
         open={open}
         onClose={handleAddEditClose}
