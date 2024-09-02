@@ -26,7 +26,6 @@ const AddMenuItemForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add logic to handle form submission
     console.log({
       menu,
       menuItem,

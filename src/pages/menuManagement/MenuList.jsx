@@ -5,7 +5,6 @@ import {
   Box,
   Button,
   Breadcrumbs,
-  Link,
   Dialog,
   DialogActions,
   DialogContent,
@@ -118,7 +117,6 @@ const MenuList = () => {
 
       <MenuTable menus={menus} onEdit={handleEdit} onDelete={handleDelete} />
 
-      {/* Add/Edit Dialog */}
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>{editMode ? "Edit Menu" : "Add New Menu"}</DialogTitle>
         <DialogContent>

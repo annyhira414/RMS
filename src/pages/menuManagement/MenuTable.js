@@ -9,10 +9,10 @@ const MenuTable = ({ menus, onEdit, onDelete }) => {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell sm={{ fontWeight: "bold" }}>Restaurant Name</TableCell>
-            <TableCell sm={{ fontWeight: "bold" }}>Menu Name</TableCell>
-            <TableCell sm={{ fontWeight: "bold" }}>Description</TableCell>
-            <TableCell sm={{ fontWeight: "bold" }}>Action</TableCell>
+            <TableCell sx={{ fontWeight: "bold" }}>Restaurant Name</TableCell>
+            <TableCell sx={{ fontWeight: "bold" }}>Menu Name</TableCell>
+            <TableCell sx={{ fontWeight: "bold" }}>Description</TableCell>
+            <TableCell sx={{ fontWeight: "bold" }}>Action</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
